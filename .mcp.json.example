@@ -1,5 +1,15 @@
 {
   "mcpServers": {
+    "gcloud": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@google-cloud/gcloud-mcp"],
+      "env": {
+        "CLOUDSDK_CORE_PROJECT": "your-gcp-project-id",
+        "CLOUDSDK_COMPUTE_REGION": "us-central1",
+        "CLOUDSDK_COMPUTE_ZONE": "us-central1-a"
+      }
+    },
     "kubernetes": {
       "type": "stdio",
       "command": "npx",
