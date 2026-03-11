@@ -1,0 +1,47 @@
+[mcp_servers.gcloud]
+command = "npx"
+args = ["-y", "@google-cloud/gcloud-mcp"]
+
+[mcp_servers.kubernetes]
+command = "npx"
+args = ["-y", "kubernetes-mcp-server@latest", "--read-only"]
+
+[mcp_servers.clickhouse-test]
+command = "uv"
+args = [
+  "run",
+  "--with",
+  "mcp-clickhouse",
+  "--python",
+  "3.10",
+  "mcp-clickhouse"
+]
+[mcp_servers.clickhouse-test.env]
+CLICKHOUSE_HOST = "clickhouse.example-test.com"
+CLICKHOUSE_PORT = "80"
+CLICKHOUSE_USER = "readonly"
+CLICKHOUSE_PASSWORD = "your-test-password-here"
+CLICKHOUSE_SECURE = "false"
+CLICKHOUSE_VERIFY = "false"
+CLICKHOUSE_CONNECT_TIMEOUT = "30"
+CLICKHOUSE_SEND_RECEIVE_TIMEOUT = "30"
+
+[mcp_servers.clickhouse-prod]
+command = "uv"
+args = [
+  "run",
+  "--with",
+  "mcp-clickhouse",
+  "--python",
+  "3.10",
+  "mcp-clickhouse"
+]
+[mcp_servers.clickhouse-prod.env]
+CLICKHOUSE_HOST = "clickhouse.example.com"
+CLICKHOUSE_PORT = "80"
+CLICKHOUSE_USER = "readonly"
+CLICKHOUSE_PASSWORD = "your-prod-password-here"
+CLICKHOUSE_SECURE = "false"
+CLICKHOUSE_VERIFY = "false"
+CLICKHOUSE_CONNECT_TIMEOUT = "30"
+CLICKHOUSE_SEND_RECEIVE_TIMEOUT = "30"
