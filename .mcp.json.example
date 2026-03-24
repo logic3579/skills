@@ -18,11 +18,8 @@
     },
     "clickhouse-test": {
       "type": "stdio",
-      "command": "uv",
+      "command": "uvx",
       "args": [
-        "run",
-        "--with",
-        "mcp-clickhouse",
         "--python",
         "3.10",
         "mcp-clickhouse"
@@ -40,11 +37,8 @@
     },
     "clickhouse-prod": {
       "type": "stdio",
-      "command": "uv",
+      "command": "uvx",
       "args": [
-        "run",
-        "--with",
-        "mcp-clickhouse",
         "--python",
         "3.10",
         "mcp-clickhouse"

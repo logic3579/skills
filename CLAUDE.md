@@ -30,6 +30,9 @@ skills/<skill-name>/
 - **`.claude/commands/`** contains slash command templates (pure markdown prompts, no executable code)
 - **`.mcp.json.example`** is the MCP server config template; copy to `.mcp.json` and fill in real credentials
 - **`.mcp.json`** and **`.claude/settings.local.json`** are gitignored (contain secrets/local preferences)
+- MCP servers use `stdio` transport: Claude Code communicates with child processes via stdin/stdout JSON-RPC
+- Node.js MCP servers use `npx -y` for zero-install execution (e.g., kubernetes)
+- Python MCP servers use `uvx` (alias for `uv tool run`) for zero-install execution (e.g., clickhouse), credentials are passed via `env`
 
 ## Creating a New Skill
 
