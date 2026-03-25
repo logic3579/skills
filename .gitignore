@@ -1,2 +1,11 @@
+# claude-code
 .mcp.json
 .claude/settings.local.json
+.claude/memory/
+.claude/sessions/
+
+# codex
+.codex/config.toml
+
+# gemini-cli
+.gemini/settings.json

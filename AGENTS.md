@@ -23,10 +23,14 @@ This is a **non-code project** — there is no build system, test framework, or 
 ├── .claude/
 │   ├── commands/              # Slash command templates (.md files)
 │   └── settings.local.json    # Local settings (gitignored)
-├── .codex/                    # Codex-specific config
-├── .gemini/                   # Gemini CLI config
-├── .mcp.json                  # Active MCP server config (gitignored)
-├── .mcp.json.example          # MCP config template
+├── .codex/
+│   ├── config.toml            # Active Codex MCP config (gitignored)
+│   └── config.toml.example    # Codex MCP config template
+├── .gemini/
+│   ├── settings.json          # Active Gemini MCP config (gitignored)
+│   └── settings.json.example  # Gemini MCP config template
+├── .mcp.json                  # Active Claude Code MCP config (gitignored)
+├── .mcp.json.example          # Claude Code MCP config template
 ├── CLAUDE.md                  # Claude Code guidance
 ├── GEMINI.md                  # Gemini CLI guidance
 └── AGENTS.md                  # This file
@@ -43,7 +47,9 @@ There is **no build system or test runner** in this repository. Typical tasks in
 | Task | Command |
 |------|---------|
 | Copy a skill to a consumer project | `cp -r skills/skill-name /path/to/project/.claude/skills/` |
-| Initialize MCP config locally | `cp .mcp.json.example .mcp.json` |
+| Initialize MCP config (Claude Code) | `cp .mcp.json.example .mcp.json` |
+| Initialize MCP config (Gemini CLI) | `cp .gemini/settings.json.example .gemini/settings.json` |
+| Initialize MCP config (Codex) | `cp .codex/config.toml.example .codex/config.toml` |
 | Verify SKILL.md YAML frontmatter | Manual check — ensure `name` and `description` fields are present |
 
 ### Validation Checklist
@@ -68,7 +74,9 @@ Since this is a configuration/template repository, "code" primarily refers to SK
 | SKILL.md files | Exactly `SKILL.md` | `skills/git-helper/SKILL.md` |
 | Slash commands | lowercase, descriptive | `.claude/commands/test.md` |
 | Scripts | lowercase with hyphens or snake_case | `scripts/deploy.sh` |
-| MCP config | `.mcp.json.example` for template | `.mcp.json` (local only) |
+| MCP config (Claude Code) | `.mcp.json.example` for template | `.mcp.json` (local only) |
+| MCP config (Gemini CLI) | `.gemini/settings.json.example` for template | `.gemini/settings.json` (local only) |
+| MCP config (Codex) | `.codex/config.toml.example` for template | `.codex/config.toml` (local only) |
 
 ### SKILL.md Format
 
@@ -185,8 +193,8 @@ Use short, imperative summaries:
 ### Never Commit Secrets
 
 - **Do not** commit credentials, API keys, or tokens
-- Use `.example` files as templates (e.g., `.mcp.json.example`)
-- Keep `.mcp.json`, `.claude/settings.local.json` gitignored
+- Use `.example` files as templates (e.g., `.mcp.json.example`, `.gemini/settings.json.example`, `.codex/config.toml.example`)
+- Keep `.mcp.json`, `.claude/settings.local.json`, `.gemini/settings.json`, `.codex/config.toml` gitignored
 - Warn user if they accidentally include secrets
 
 ### Skill Security
@@ -214,7 +222,7 @@ Use short, imperative summaries:
 ### Gemini CLI
 
 - Follow conventions in `GEMINI.md`
-- MCP servers are defined in `.gemini/settings.json`
+- MCP servers are defined in `.gemini/settings.json` (copy from `.gemini/settings.json.example`)
 - Use `gemini mcp list` to verify configurations
 
 ### GitHub Copilot
@@ -230,7 +238,9 @@ Use short, imperative summaries:
 |------|----------|
 | Create new skill | `skills/<skill-name>/SKILL.md` |
 | Add slash command | `.claude/commands/<name>.md` |
-| Configure MCP | `.mcp.json` (copy from `.mcp.json.example`) |
+| Configure MCP (Claude Code) | `.mcp.json` (copy from `.mcp.json.example`) |
+| Configure MCP (Gemini CLI) | `.gemini/settings.json` (copy from `.gemini/settings.json.example`) |
+| Configure MCP (Codex) | `.codex/config.toml` (copy from `.codex/config.toml.example`) |
 | Agent-specific config | `CLAUDE.md`, `GEMINI.md`, or `.claude/settings.local.json` |
 | Project overview | `README.md` |
 

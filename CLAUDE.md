@@ -28,8 +28,10 @@ skills/<skill-name>/
 
 - **SKILL.md** uses YAML frontmatter (`name`, `description`) followed by an `## Instructions` section with agent directives
 - **`.claude/commands/`** contains slash command templates (pure markdown prompts, no executable code)
-- **`.mcp.json.example`** is the MCP server config template; copy to `.mcp.json` and fill in real credentials
-- **`.mcp.json`** and **`.claude/settings.local.json`** are gitignored (contain secrets/local preferences)
+- **`.mcp.json.example`** is the MCP server config template for Claude Code; copy to `.mcp.json` and fill in real credentials
+- **`.gemini/settings.json.example`** is the MCP config template for Gemini CLI; copy to `.gemini/settings.json` and fill in real credentials
+- **`.codex/config.toml.example`** is the MCP config template for OpenAI Codex; copy to `.codex/config.toml` and fill in real credentials
+- **`.mcp.json`**, **`.claude/settings.local.json`**, **`.gemini/settings.json`**, and **`.codex/config.toml`** are gitignored (contain secrets/local preferences)
 - MCP servers use `stdio` transport: Claude Code communicates with child processes via stdin/stdout JSON-RPC
 - Node.js MCP servers use `npx -y` for zero-install execution (e.g., kubernetes)
 - Python MCP servers use `uvx` (alias for `uv tool run`) for zero-install execution (e.g., clickhouse), credentials are passed via `env`

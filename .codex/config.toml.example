@@ -5,13 +5,11 @@ args = ["-y", "@google-cloud/gcloud-mcp"]
 [mcp_servers.kubernetes]
 command = "npx"
 args = ["-y", "kubernetes-mcp-server@latest", "--read-only"]
+startup_timeout_sec = 10
 
 [mcp_servers.clickhouse-test]
-command = "uv"
+command = "uvx"
 args = [
-  "run",
-  "--with",
-  "mcp-clickhouse",
   "--python",
   "3.10",
   "mcp-clickhouse"
@@ -27,11 +25,8 @@ CLICKHOUSE_CONNECT_TIMEOUT = "30"
 CLICKHOUSE_SEND_RECEIVE_TIMEOUT = "30"
 
 [mcp_servers.clickhouse-prod]
-command = "uv"
+command = "uvx"
 args = [
-  "run",
-  "--with",
-  "mcp-clickhouse",
   "--python",
   "3.10",
   "mcp-clickhouse"
