@@ -29,6 +29,9 @@ This is a **non-code project** — there is no build system, test framework, or 
 ├── .gemini/
 │   ├── settings.json          # Active Gemini MCP config (gitignored)
 │   └── settings.json.example  # Gemini MCP config template
+├── .opencode/
+│   ├── opencode.json          # Active OpenCode config with plugins & MCP (gitignored)
+│   └── opencode.json.example  # OpenCode config template
 ├── .mcp.json                  # Active Claude Code MCP config (gitignored)
 ├── .mcp.json.example          # Claude Code MCP config template
 ├── CLAUDE.md                  # Claude Code guidance
@@ -50,6 +53,7 @@ There is **no build system or test runner** in this repository. Typical tasks in
 | Initialize MCP config (Claude Code) | `cp .mcp.json.example .mcp.json` |
 | Initialize MCP config (Gemini CLI) | `cp .gemini/settings.json.example .gemini/settings.json` |
 | Initialize MCP config (Codex) | `cp .codex/config.toml.example .codex/config.toml` |
+| Initialize config (OpenCode) | `cp .opencode/opencode.json.example .opencode/opencode.json` |
 | Verify SKILL.md YAML frontmatter | Manual check — ensure `name` and `description` fields are present |
 
 ### Validation Checklist
@@ -77,6 +81,7 @@ Since this is a configuration/template repository, "code" primarily refers to SK
 | MCP config (Claude Code) | `.mcp.json.example` for template | `.mcp.json` (local only) |
 | MCP config (Gemini CLI) | `.gemini/settings.json.example` for template | `.gemini/settings.json` (local only) |
 | MCP config (Codex) | `.codex/config.toml.example` for template | `.codex/config.toml` (local only) |
+| Config (OpenCode) | `.opencode/opencode.json.example` for template | `.opencode/opencode.json` (local only) |
 
 ### SKILL.md Format
 
@@ -133,7 +138,8 @@ description: <Short description (1-2 sentences)>
 This repository does not use external package managers (npm, pip, etc.) for the templates themselves. However:
 
 - **Skills may reference external tools** (e.g., `eslint`, `prettier`) — document these in SKILL.md
-- **MCP servers** are defined in `.mcp.json` and may require local installation
+- **MCP servers** are defined in `.mcp.json` or `.opencode/opencode.json` and may require local installation
+- **OpenCode plugins** are installed automatically via Bun when the config changes (dependencies stored in `.opencode/node_modules/`, gitignored)
 - **Scripts** should be self-contained or document required dependencies
 
 ---
@@ -151,7 +157,7 @@ If a skill's SKILL.md has issues:
 
 - If an MCP server fails to connect, check:
   - Server is installed (`which <server>`)
-  - Path is correct in `.mcp.json`
+  - Path is correct in `.mcp.json` or `.opencode/opencode.json`
   - Required environment variables are set
 
 ### Script Errors
@@ -185,6 +191,7 @@ Use short, imperative summaries:
 - Link relevant issues or specs if available
 - Include examples or screenshots for complex prompts
 - Ensure `.mcp.json` and local settings are not included
+- Ensure `.opencode/opencode.json` is not included (use `.opencode/opencode.json.example` instead)
 
 ---
 
@@ -193,9 +200,13 @@ Use short, imperative summaries:
 ### Never Commit Secrets
 
 - **Do not** commit credentials, API keys, or tokens
-- Use `.example` files as templates (e.g., `.mcp.json.example`, `.gemini/settings.json.example`, `.codex/config.toml.example`)
-- Keep `.mcp.json`, `.claude/settings.local.json`, `.gemini/settings.json`, `.codex/config.toml` gitignored
+- Use `.example` files as templates (e.g., `.mcp.json.example`, `.gemini/settings.json.example`, `.codex/config.toml.example`, `.opencode/opencode.json.example`)
+- Keep `.mcp.json`, `.claude/settings.local.json`, `.gemini/settings.json`, `.codex/config.toml`, `.opencode/opencode.json` gitignored
 - Warn user if they accidentally include secrets
+
+### Syncing Config Changes to Example Files
+
+**Important:** Whenever `.opencode/opencode.json` is updated (adding/removing plugins, MCP servers, etc.), the changes must be synced to `.opencode/opencode.json.example` with all sensitive values replaced by placeholders (e.g., `YOUR_API_KEY`, `YOUR_HOST`). This applies to all agent config files that have `.example` counterparts.
 
 ### Skill Security
 
@@ -218,6 +229,10 @@ Use short, imperative summaries:
 - Follow conventions in AGENTS.md (this file)
 - Skills work out of the box with OpenCode's skill system
 - Use `/test` or `/review` slash commands from `.claude/commands/`
+- MCP servers are defined in `.opencode/opencode.json` (copy from `.opencode/opencode.json.example`)
+- Plugins are configured in the `plugin` array of `.opencode/opencode.json`
+- Use `opencode debug config` to verify configurations
+- Use `opencode debug skill` to list all available skills
 
 ### Gemini CLI
 
@@ -241,6 +256,7 @@ Use short, imperative summaries:
 | Configure MCP (Claude Code) | `.mcp.json` (copy from `.mcp.json.example`) |
 | Configure MCP (Gemini CLI) | `.gemini/settings.json` (copy from `.gemini/settings.json.example`) |
 | Configure MCP (Codex) | `.codex/config.toml` (copy from `.codex/config.toml.example`) |
+| Configure (OpenCode) | `.opencode/opencode.json` (copy from `.opencode/opencode.json.example`) |
 | Agent-specific config | `CLAUDE.md`, `GEMINI.md`, or `.claude/settings.local.json` |
 | Project overview | `README.md` |
 

@@ -1,5 +1,6 @@
 # claude-code
 .mcp.json
+.claude/settings.json
 .claude/settings.local.json
 .claude/memory/
 .claude/sessions/
@@ -9,3 +10,9 @@
 
 # gemini-cli
 .gemini/settings.json
+
+# opencode
+.opencode/opencode.json
+.opencode/node_modules/
+.opencode/package.json
+.opencode/bun.lock

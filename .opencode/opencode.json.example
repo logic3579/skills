@@ -1,0 +1,44 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "superpowers@git+https://github.com/obra/superpowers.git",
+    "oh-my-openagent@git+https://github.com/code-yeongyu/oh-my-openagent.git"
+  ],
+  "mcp": {
+    "kubernetes": {
+      "type": "local",
+      "command": ["npx", "-y", "kubernetes-mcp-server@latest", "--read-only"],
+      "enabled": true
+    },
+    "clickhouse-test": {
+      "type": "local",
+      "command": ["uvx", "--python", "3.10", "mcp-clickhouse"],
+      "enabled": true,
+      "environment": {
+        "CLICKHOUSE_HOST": "YOUR_CLICKHOUSE_TEST_HOST",
+        "CLICKHOUSE_PORT": "80",
+        "CLICKHOUSE_USER": "YOUR_CLICKHOUSE_USER",
+        "CLICKHOUSE_PASSWORD": "YOUR_CLICKHOUSE_TEST_PASSWORD",
+        "CLICKHOUSE_SECURE": "false",
+        "CLICKHOUSE_VERIFY": "false",
+        "CLICKHOUSE_CONNECT_TIMEOUT": "30",
+        "CLICKHOUSE_SEND_RECEIVE_TIMEOUT": "30"
+      }
+    },
+    "clickhouse-prod": {
+      "type": "local",
+      "command": ["uvx", "--python", "3.10", "mcp-clickhouse"],
+      "enabled": true,
+      "environment": {
+        "CLICKHOUSE_HOST": "YOUR_CLICKHOUSE_PROD_HOST",
+        "CLICKHOUSE_PORT": "80",
+        "CLICKHOUSE_USER": "YOUR_CLICKHOUSE_USER",
+        "CLICKHOUSE_PASSWORD": "YOUR_CLICKHOUSE_PROD_PASSWORD",
+        "CLICKHOUSE_SECURE": "false",
+        "CLICKHOUSE_VERIFY": "false",
+        "CLICKHOUSE_CONNECT_TIMEOUT": "30",
+        "CLICKHOUSE_SEND_RECEIVE_TIMEOUT": "30"
+      }
+    }
+  }
+}
