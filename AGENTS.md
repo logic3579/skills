@@ -172,12 +172,41 @@ If a skill's SKILL.md has issues:
 
 ### Commit Message Style
 
-Use short, imperative summaries:
-- ✅ `Add git-helper skill`
-- ✅ `Update mcp config template`
-- ✅ `Fix skill-creator instructions`
-- ❌ `Added a new skill` (too vague)
-- ❌ `Fixed stuff` (unhelpful)
+All commits **MUST** follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Required types:**
+
+| Type | Usage |
+|------|-------|
+| `feat` | New feature or capability |
+| `fix` | Bug fix |
+| `docs` | Documentation changes |
+| `chore` | Maintenance, configs, dependencies |
+| `refactor` | Code restructuring without behavior change |
+| `style` | Formatting, whitespace (no logic change) |
+| `test` | Adding or updating tests |
+| `ci` | CI/CD configuration changes |
+| `perf` | Performance improvements |
+| `build` | Build system or external dependency changes |
+
+**Rules:**
+- Type is **required**, scope is optional
+- Description must be lowercase, imperative mood, no period at the end
+- ✅ `feat: add git-helper skill`
+- ✅ `docs: update mcp config template`
+- ✅ `fix: resolve skill-creator parsing error`
+- ✅ `chore: add gcloud MCP server configuration`
+- ❌ `Added a new skill` (missing type, past tense)
+- ❌ `Fixed stuff.` (missing type, vague, has period)
+- ❌ `feat:Add feature` (missing space after colon)
 
 ### Branch Naming
 

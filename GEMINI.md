@@ -24,6 +24,7 @@ The project itself is a **Non-Code Project** (template/configuration repository)
 - **Self-Contained**: Each skill should be focused and reside in its own directory under `skills/`.
 - **No Secrets**: Never commit sensitive data. Use `.example` files for templates and ensure `.gemini/settings.json` is handled carefully if it contains local overrides.
 - **MCP Configuration**: MCP servers should be defined in `.gemini/settings.json` under the `mcpServers` key.
+- **Git Commit Messages**: All commits **MUST** follow the [Conventional Commits](https://www.conventionalcommits.org/) specification: `<type>[optional scope]: <description>`. Required types: `feat`, `fix`, `docs`, `chore`, `refactor`, `style`, `test`, `ci`, `perf`, `build`. Examples: `feat: add login page`, `fix: resolve parsing error`, `docs: update CLAUDE.md`, `chore: add MCP config`.
 
 ## Common Tasks
 

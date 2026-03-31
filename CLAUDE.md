@@ -16,6 +16,14 @@ This is a template/configuration repository — there is no build system, test f
 - Slash commands go in `.claude/commands/` as `.md` files
 - Sensitive data (credentials, API keys) must never be committed — use `.example` files as templates
 
+### Git Commit Messages
+
+All commits **MUST** follow the [Conventional Commits](https://www.conventionalcommits.org/) specification: `<type>[optional scope]: <description>`
+
+Required types: `feat`, `fix`, `docs`, `chore`, `refactor`, `style`, `test`, `ci`, `perf`, `build`
+
+Examples: `feat: add login page`, `fix: resolve parsing error`, `docs: update CLAUDE.md`, `chore: add MCP config`
+
 ## Architecture
 
 ```
