@@ -21,10 +21,7 @@
         "mcp-clickhouse"
       ],
       "env": {
-        "CLICKHOUSE_HOST": "clickhouse.example-test.com",
         "CLICKHOUSE_PORT": "80",
-        "CLICKHOUSE_USER": "readonly",
-        "CLICKHOUSE_PASSWORD": "your-test-password-here",
         "CLICKHOUSE_SECURE": "false",
         "CLICKHOUSE_VERIFY": "false",
         "CLICKHOUSE_CONNECT_TIMEOUT": "30",
@@ -40,10 +37,7 @@
         "mcp-clickhouse"
       ],
       "env": {
-        "CLICKHOUSE_HOST": "clickhouse.example.com",
         "CLICKHOUSE_PORT": "80",
-        "CLICKHOUSE_USER": "readonly",
-        "CLICKHOUSE_PASSWORD": "your-prod-password-here",
         "CLICKHOUSE_SECURE": "false",
         "CLICKHOUSE_VERIFY": "false",
         "CLICKHOUSE_CONNECT_TIMEOUT": "30",

@@ -14,7 +14,7 @@ This is a template/configuration repository — there is no build system, test f
 - Skills follow the [Agent Skills specification](https://agentskills.io/specification)
 - Skill names use lowercase with hyphens (e.g., `my-skill-name`)
 - Slash commands go in `.claude/commands/` as `.md` files
-- Sensitive data (credentials, API keys) must never be committed — use `.example` files as templates
+- Sensitive data (credentials, API keys) must never be hardcoded in config files — use environment variable inheritance instead
 
 ### Git Commit Messages
 
@@ -36,13 +36,15 @@ skills/<skill-name>/
 
 - **SKILL.md** uses YAML frontmatter (`name`, `description`) followed by an `## Instructions` section with agent directives
 - **`.claude/commands/`** contains slash command templates (pure markdown prompts, no executable code)
-- **`.mcp.json.example`** is the MCP server config template for Claude Code; copy to `.mcp.json` and fill in real credentials
-- **`.gemini/settings.json.example`** is the MCP config template for Gemini CLI; copy to `.gemini/settings.json` and fill in real credentials
-- **`.codex/config.toml.example`** is the MCP config template for OpenAI Codex; copy to `.codex/config.toml` and fill in real credentials
-- **`.mcp.json`**, **`.claude/settings.local.json`**, **`.gemini/settings.json`**, and **`.codex/config.toml`** are gitignored (contain secrets/local preferences)
+- **`.mcp.json`** is the MCP server config for Claude Code (committed, no secrets)
+- **`.gemini/settings.json`** is the MCP config for Gemini CLI (committed, no secrets)
+- **`.codex/config.toml`** is the MCP config for OpenAI Codex (committed, no secrets)
+- **`.opencode/opencode.json`** is the config for OpenCode with plugins & MCP (committed, no secrets)
+- Sensitive values (host, user, password) are omitted from config files and inherited from shell environment variables
+- **`.claude/settings.local.json`** is gitignored (local preferences)
 - MCP servers use `stdio` transport: Claude Code communicates with child processes via stdin/stdout JSON-RPC
 - Node.js MCP servers use `npx -y` for zero-install execution (e.g., kubernetes)
-- Python MCP servers use `uvx` (alias for `uv tool run`) for zero-install execution (e.g., clickhouse), credentials are passed via `env`
+- Python MCP servers use `uvx` (alias for `uv tool run`) for zero-install execution (e.g., clickhouse), sensitive credentials are inherited from shell environment variables
 
 ## Creating a New Skill
 

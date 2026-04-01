@@ -12,7 +12,7 @@ The project itself is a **Non-Code Project** (template/configuration repository)
   - Each skill directory must contain a `SKILL.md` file with YAML frontmatter (`name`, `description`) and an `## Instructions` section.
 - `.gemini/settings.json`: Project-level configuration for Gemini CLI, including MCP server definitions.
 - `.claude/commands/`: Markdown templates for slash commands (e.g., `/review`, `/test`).
-- `.mcp.json.example`: A template for MCP server configurations.
+- `.mcp.json`: MCP server configuration for Claude Code (no secrets, env inheritance).
 
 ## Key Files
 - `CLAUDE.md`: General guidance for AI agents working in this repo.
@@ -22,7 +22,7 @@ The project itself is a **Non-Code Project** (template/configuration repository)
 ## Development Conventions
 - **Skill Naming**: Use lowercase with hyphens (e.g., `my-new-skill`).
 - **Self-Contained**: Each skill should be focused and reside in its own directory under `skills/`.
-- **No Secrets**: Never commit sensitive data. Use `.example` files for templates and ensure `.gemini/settings.json` is handled carefully if it contains local overrides.
+- **No Secrets**: Never hardcode sensitive data in config files. Sensitive values (host, user, password) are inherited from shell environment variables at runtime.
 - **MCP Configuration**: MCP servers should be defined in `.gemini/settings.json` under the `mcpServers` key.
 - **Git Commit Messages**: All commits **MUST** follow the [Conventional Commits](https://www.conventionalcommits.org/) specification: `<type>[optional scope]: <description>`. Required types: `feat`, `fix`, `docs`, `chore`, `refactor`, `style`, `test`, `ci`, `perf`, `build`. Examples: `feat: add login page`, `fix: resolve parsing error`, `docs: update CLAUDE.md`, `chore: add MCP config`.
 

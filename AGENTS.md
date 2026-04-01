@@ -24,16 +24,12 @@ This is a **non-code project** — there is no build system, test framework, or 
 │   ├── commands/              # Slash command templates (.md files)
 │   └── settings.local.json    # Local settings (gitignored)
 ├── .codex/
-│   ├── config.toml            # Active Codex MCP config (gitignored)
-│   └── config.toml.example    # Codex MCP config template
+│   └── config.toml            # Codex MCP config (no secrets, env inheritance)
 ├── .gemini/
-│   ├── settings.json          # Active Gemini MCP config (gitignored)
-│   └── settings.json.example  # Gemini MCP config template
+│   └── settings.json          # Gemini MCP config (no secrets, env inheritance)
 ├── .opencode/
-│   ├── opencode.json          # Active OpenCode config with plugins & MCP (gitignored)
-│   └── opencode.json.example  # OpenCode config template
-├── .mcp.json                  # Active Claude Code MCP config (gitignored)
-├── .mcp.json.example          # Claude Code MCP config template
+│   └── opencode.json          # OpenCode config with plugins & MCP (no secrets, env inheritance)
+├── .mcp.json                  # Claude Code MCP config (no secrets, env inheritance)
 ├── CLAUDE.md                  # Claude Code guidance
 ├── GEMINI.md                  # Gemini CLI guidance
 └── AGENTS.md                  # This file
@@ -50,10 +46,7 @@ There is **no build system or test runner** in this repository. Typical tasks in
 | Task | Command |
 |------|---------|
 | Copy a skill to a consumer project | `cp -r skills/skill-name /path/to/project/.claude/skills/` |
-| Initialize MCP config (Claude Code) | `cp .mcp.json.example .mcp.json` |
-| Initialize MCP config (Gemini CLI) | `cp .gemini/settings.json.example .gemini/settings.json` |
-| Initialize MCP config (Codex) | `cp .codex/config.toml.example .codex/config.toml` |
-| Initialize config (OpenCode) | `cp .opencode/opencode.json.example .opencode/opencode.json` |
+| Set up MCP credentials | Export `CLICKHOUSE_HOST`, `CLICKHOUSE_USER`, `CLICKHOUSE_PASSWORD` in shell profile |
 | Verify SKILL.md YAML frontmatter | Manual check — ensure `name` and `description` fields are present |
 
 ### Validation Checklist
@@ -78,10 +71,10 @@ Since this is a configuration/template repository, "code" primarily refers to SK
 | SKILL.md files | Exactly `SKILL.md` | `skills/git-helper/SKILL.md` |
 | Slash commands | lowercase, descriptive | `.claude/commands/test.md` |
 | Scripts | lowercase with hyphens or snake_case | `scripts/deploy.sh` |
-| MCP config (Claude Code) | `.mcp.json.example` for template | `.mcp.json` (local only) |
-| MCP config (Gemini CLI) | `.gemini/settings.json.example` for template | `.gemini/settings.json` (local only) |
-| MCP config (Codex) | `.codex/config.toml.example` for template | `.codex/config.toml` (local only) |
-| Config (OpenCode) | `.opencode/opencode.json.example` for template | `.opencode/opencode.json` (local only) |
+| MCP config (Claude Code) | `.mcp.json` | Committed (no secrets) |
+| MCP config (Gemini CLI) | `.gemini/settings.json` | Committed (no secrets) |
+| MCP config (Codex) | `.codex/config.toml` | Committed (no secrets) |
+| Config (OpenCode) | `.opencode/opencode.json` | Committed (no secrets) |
 
 ### SKILL.md Format
 
@@ -219,8 +212,7 @@ All commits **MUST** follow the [Conventional Commits](https://www.conventionalc
 - Describe the new skill or change scope clearly
 - Link relevant issues or specs if available
 - Include examples or screenshots for complex prompts
-- Ensure `.mcp.json` and local settings are not included
-- Ensure `.opencode/opencode.json` is not included (use `.opencode/opencode.json.example` instead)
+- Ensure no sensitive data (credentials, API keys) is hardcoded in config files
 
 ---
 
@@ -228,14 +220,11 @@ All commits **MUST** follow the [Conventional Commits](https://www.conventionalc
 
 ### Never Commit Secrets
 
-- **Do not** commit credentials, API keys, or tokens
-- Use `.example` files as templates (e.g., `.mcp.json.example`, `.gemini/settings.json.example`, `.codex/config.toml.example`, `.opencode/opencode.json.example`)
-- Keep `.mcp.json`, `.claude/settings.local.json`, `.gemini/settings.json`, `.codex/config.toml`, `.opencode/opencode.json` gitignored
+- **Do not** hardcode credentials, API keys, or tokens in config files
+- Config files (`.mcp.json`, `.gemini/settings.json`, `.codex/config.toml`, `.opencode/opencode.json`) are committed to the repo with sensitive fields omitted
+- Sensitive values (host, user, password) are inherited from shell environment variables at runtime
+- Keep `.claude/settings.local.json` gitignored (local preferences)
 - Warn user if they accidentally include secrets
-
-### Syncing Config Changes to Example Files
-
-**Important:** Whenever `.opencode/opencode.json` is updated (adding/removing plugins, MCP servers, etc.), the changes must be synced to `.opencode/opencode.json.example` with all sensitive values replaced by placeholders (e.g., `YOUR_API_KEY`, `YOUR_HOST`). This applies to all agent config files that have `.example` counterparts.
 
 ### Skill Security
 
@@ -258,7 +247,7 @@ All commits **MUST** follow the [Conventional Commits](https://www.conventionalc
 - Follow conventions in AGENTS.md (this file)
 - Skills work out of the box with OpenCode's skill system
 - Use `/test` or `/review` slash commands from `.claude/commands/`
-- MCP servers are defined in `.opencode/opencode.json` (copy from `.opencode/opencode.json.example`)
+- MCP servers are defined in `.opencode/opencode.json`
 - Plugins are configured in the `plugin` array of `.opencode/opencode.json`
 - Use `opencode debug config` to verify configurations
 - Use `opencode debug skill` to list all available skills
@@ -266,7 +255,7 @@ All commits **MUST** follow the [Conventional Commits](https://www.conventionalc
 ### Gemini CLI
 
 - Follow conventions in `GEMINI.md`
-- MCP servers are defined in `.gemini/settings.json` (copy from `.gemini/settings.json.example`)
+- MCP servers are defined in `.gemini/settings.json`
 - Use `gemini mcp list` to verify configurations
 
 ### GitHub Copilot
@@ -282,10 +271,10 @@ All commits **MUST** follow the [Conventional Commits](https://www.conventionalc
 |------|----------|
 | Create new skill | `skills/<skill-name>/SKILL.md` |
 | Add slash command | `.claude/commands/<name>.md` |
-| Configure MCP (Claude Code) | `.mcp.json` (copy from `.mcp.json.example`) |
-| Configure MCP (Gemini CLI) | `.gemini/settings.json` (copy from `.gemini/settings.json.example`) |
-| Configure MCP (Codex) | `.codex/config.toml` (copy from `.codex/config.toml.example`) |
-| Configure (OpenCode) | `.opencode/opencode.json` (copy from `.opencode/opencode.json.example`) |
+| Configure MCP (Claude Code) | `.mcp.json` |
+| Configure MCP (Gemini CLI) | `.gemini/settings.json` |
+| Configure MCP (Codex) | `.codex/config.toml` |
+| Configure (OpenCode) | `.opencode/opencode.json` |
 | Agent-specific config | `CLAUDE.md`, `GEMINI.md`, or `.claude/settings.local.json` |
 | Project overview | `README.md` |
 

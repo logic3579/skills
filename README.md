@@ -17,7 +17,7 @@ Compatible with **Claude Code**, **GitHub Copilot**, **OpenAI Codex**, and other
 ├── .claude/
 │   ├── commands/              # Claude Code slash commands
 │   └── settings.local.json   # Local settings (gitignored)
-├── .mcp.json.example          # MCP server configuration template
+├── .mcp.json                  # MCP server configuration (no secrets)
 ├── CLAUDE.md                  # Project-level agent instructions
 └── .gitignore
 ```
@@ -34,9 +34,12 @@ cp -r skills/skill-name /path/to/your/project/.claude/skills/
 
 ### Set up MCP servers
 
+Export the required environment variables for MCP servers that need credentials:
+
 ```bash
-cp .mcp.json.example .mcp.json
-# Edit .mcp.json with your actual credentials
+export CLICKHOUSE_HOST="your-host"
+export CLICKHOUSE_USER="your-user"
+export CLICKHOUSE_PASSWORD="your-password"
 ```
 
 ### Use slash commands
