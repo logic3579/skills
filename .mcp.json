@@ -12,30 +12,10 @@
       "args": ["-y", "kubernetes-mcp-server@latest", "--read-only"],
       "env": {}
     },
-    "clickhouse-test": {
+    "clickhouse": {
       "type": "stdio",
       "command": "uvx",
-      "args": [
-        "--python",
-        "3.10",
-        "mcp-clickhouse"
-      ],
-      "env": {
-        "CLICKHOUSE_PORT": "80",
-        "CLICKHOUSE_SECURE": "false",
-        "CLICKHOUSE_VERIFY": "false",
-        "CLICKHOUSE_CONNECT_TIMEOUT": "30",
-        "CLICKHOUSE_SEND_RECEIVE_TIMEOUT": "30"
-      }
-    },
-    "clickhouse-prod": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": [
-        "--python",
-        "3.10",
-        "mcp-clickhouse"
-      ],
+      "args": ["--python", "3.10", "mcp-clickhouse"],
       "env": {
         "CLICKHOUSE_PORT": "80",
         "CLICKHOUSE_SECURE": "false",
